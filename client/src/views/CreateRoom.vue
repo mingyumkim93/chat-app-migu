@@ -1,10 +1,25 @@
 <template>
-  <div>
-    Create chat room
-    <button @click="moveToCreateRoomListPage">Room List</button>
-    <input placeholder="Room name" v-model="roomName" />
-    <button @click="createRoom">Create room</button>
-  </div>
+  <v-container fill-height>
+    <v-row style="height:5%">
+      <v-col sm="3">
+        <v-btn @click="moveToCreateRoomListPage" text>Room List</v-btn>
+      </v-col>
+    </v-row>
+    <v-row style="height:50%">
+      <v-col align="center">
+        <v-text-field
+          style="width:50%"
+          class="centeredInput"
+          color="black"
+          autofocus
+          @keydown.enter="createRoom"
+          placeholder="Room name"
+          v-model="roomName"
+        ></v-text-field>
+        <v-btn @click="createRoom" text>Create room</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -43,3 +58,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.centeredInput >>> input {
+  text-align: center;
+}
+</style>

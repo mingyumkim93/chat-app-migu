@@ -1,14 +1,27 @@
 <template>
-  <div>
-    Chat Room List
-    <button @click="signOut">Sign out</button>
-    <button @click="moveToCreateRoomPage">Create Room</button>
-    <div v-for="(room, index) in rooms" :key="index">
-      ID{{ room.id }}, Room Name: {{ room.roomName }},
-      {{ room.attendees.length }} attending
-      <button @click="joinRoom(room.id, room.roomName)">Join</button>
-    </div>
-  </div>
+  <v-container fill-height>
+    <v-app-bar app>
+      <v-btn @click="moveToCreateRoomPage" text>Create Room</v-btn>
+      <v-btn @click="signOut" text>Sign out</v-btn>
+    </v-app-bar>
+    <v-row>
+      <v-col>
+        <v-card v-for="(room, index) in rooms" :key="index">
+          <v-list-item-content>
+            <v-list-item-title class="headline mb-1">
+              {{ room.roomName }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ room.attendees.length }} attending
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-card-actions>
+            <v-btn @click="joinRoom(room.id, room.roomName)">Join</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -25,7 +38,7 @@ export default {
   methods: {
     signOut(): void {
       API.signOut(store.state.user).then(res => {
-        if(res.status === 200){
+        if (res.status === 200) {
           store.commit("signOut");
           router.push("/");
         } else {
@@ -58,7 +71,7 @@ export default {
       // a existing room's attendees updated
       if (existRoom) {
         const index = this.rooms.findIndex(roomInRooms => {
-          return roomInRooms.id === room.id; 
+          return roomInRooms.id === room.id;
         });
         this.rooms[index].attendees = room.attendees;
       }
@@ -76,7 +89,7 @@ export default {
     });
   },
   created() {
-    window.addEventListener("beforeunload", this.signOut)
+    window.addEventListener("beforeunload", this.signOut);
   }
 };
 </script>
