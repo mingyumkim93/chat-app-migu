@@ -48,11 +48,7 @@ export default {
     sendMessage: function() {
       const message = { sender: store.state.user, text: this.messageInput };
       socket.emit("message", message);
-      const now = new Date();
-      const createdAt = now
-        .toISOString()
-        .replace("T", " ")
-        .slice(0, 19);
+      const createdAt = this.getLocalDateString();
       this.messages.push({ ...message, createdAt });
       this.messageInput = "";
     },
@@ -60,15 +56,24 @@ export default {
       const roomId = parseInt(window.location.pathname.split("/")[2]);
       socket.emit("leave", { roomId, user: store.state.user });
       router.push("/chat-room-list");
+    },
+    getLocalDateString: function() {
+      const d = new Date();
+      const dformat =
+        [d.getMonth() + 1, d.getDate(), d.getFullYear()].join("/") +
+        " " +
+        [d.getHours(), d.getMinutes(), d.getSeconds()].join(":");
+      return dformat;
     }
   },
   mounted() {
     socket.on("message", message => {
       message = {
         ...message,
-        createdAt: message.createdAt.replace("T", " ").slice(0, 19)
+        createdAt: this.getLocalDateString()
       };
       this.messages.push(message);
+      console.log(message)
     });
   },
   created() {

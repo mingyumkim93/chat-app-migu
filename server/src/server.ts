@@ -60,6 +60,9 @@ io.on("connection", (socket) => {
             room.attendees.push(user);
             socket.join(roomName);
             socket.broadcast.emit("attendeesChangedToNotZero", room);
+
+            const message={sender:"Admin", text:`${user} has entered.`}
+            socket.broadcast.to(roomName).emit("message", message);
         }
     });
     socket.on('leave', ({roomId, user}) => {
@@ -69,6 +72,8 @@ io.on("connection", (socket) => {
             const remainingAttendees = roomUserLeaves.attendees.filter(attendee=>attendee!==user);
             roomUserLeaves.attendees = remainingAttendees;
             socket.leave(roomUserLeaves.roomName);
+            const message={sender:"Admin", text:`${user} has left.`}
+            socket.broadcast.to(roomUserLeaves.roomName).emit("message", message);
             //nobody left 
             if(roomUserLeaves.attendees.length===0)
             {
@@ -85,7 +90,7 @@ io.on("connection", (socket) => {
     })
     socket.on('message', message => {
         const room = socket.rooms[Object.keys(socket.rooms)[1]]
-        socket.broadcast.to(room).emit("message", {...message, createdAt:new Date()}); 
+        socket.broadcast.to(room).emit("message", message);
     });
     socket.on("roomtest", ()=>console.log(socket.rooms))
 });

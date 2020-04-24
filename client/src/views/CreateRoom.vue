@@ -47,11 +47,11 @@ export default {
           );
         else {
           this.roomId = res.data.roomId;
+          router.push(`/chat-room/${this.roomId}`);
           socket.emit("join", {
             roomName: this.roomName,
             user: store.state.user
           });
-          router.push(`/chat-room/${this.roomId}`);
         }
       });
     }

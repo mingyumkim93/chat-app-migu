@@ -5,8 +5,8 @@
       <v-btn @click="signOut" text>Sign out</v-btn>
     </v-app-bar>
     <v-row>
-      <v-col>
-        <v-card v-for="(room, index) in rooms" :key="index">
+      <v-col v-for="(room, index) in rooms" :key="index" sm="3">
+        <v-card>
           <v-list-item-content>
             <v-list-item-title class="headline mb-1">
               {{ room.roomName }}
