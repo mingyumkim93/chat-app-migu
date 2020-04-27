@@ -16,5 +16,5 @@ export default {
     signOut: async function(userName: string){
         const res = await axios.post("/api/signOut",{userName});
         return res;
-    },
+    }
 }

@@ -41,9 +41,9 @@ app.post('/api/signIn',(req: Request, res: Response): void => {
 });
 
 app.post('/api/signOut',(req: Request, res: Response): void => {
-    const isUserExist = loggedInUsers.find(user => user === req.body.userName);
-    if(isUserExist){
-        loggedInUsers.splice(req.body.user, 1);
+    const index = loggedInUsers.indexOf(req.body.userName);
+    if(index !== -1){
+        loggedInUsers.splice(index, 1);
         res.sendStatus(200);
     }
     else res.sendStatus(400);

@@ -1,9 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-row justify="center" style="height:80%">
-      <v-col align="center" sm="6" style="height:100%; border:black solid thin">
+    <v-row justify="center" class="row">
+      <v-col align="center" sm="6" class="col">
         <v-text-field
-          style="width:50%; paddingTop:30%"
           class="centeredInput"
           color="black"
           autofocus
@@ -51,7 +50,8 @@
 import router from "@/router/index";
 import store from "@/store/index";
 import API from "@/services/apiService";
-export default {
+import Vue from "vue";
+export default Vue.extend({
   data: function() {
     return {
       userName: "",
@@ -60,27 +60,42 @@ export default {
     };
   },
   methods: {
-    signIn: function() {
-      if (this.userName !== "") {
-        API.signIn(this.userName).then(res => {
-          if (res.data.isUserExist) {
-            this.invaildUserNamedialog = true;
-          } else {
-            store.commit("signIn", this.userName);
-            router.push("/chat-room-list");
-          }
-        });
+    signIn(): void {
+      if (this.userName !== "Admin") {
+        if (this.userName !== "") {
+          API.signIn(this.userName).then(res => {
+            if (res.data.isUserExist) {
+              this.invaildUserNamedialog = true;
+            } else {
+              store.commit("signIn", this.userName);
+              router.push("/chat-room-list");
+            }
+          });
+        } else {
+          this.emptyUserNameDialog = true;
+        }
       } else {
-        //alert("Please input user name!");
-        this.emptyUserNameDialog = true;
+        //if userName === "Admin"
+        alert("You can't use the name!");
       }
     }
   }
-};
+});
 </script>
 
 <style scoped>
 .centeredInput >>> input {
   text-align: center;
+}
+.centeredInput {
+  width: 50%;
+  padding-top: 30%;
+}
+.row {
+  height: 80%;
+}
+.col {
+  height: 100%;
+  border:black solid thin;
 }
 </style>

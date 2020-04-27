@@ -1,14 +1,13 @@
 <template>
   <v-container fill-height>
-    <v-row style="height:5%">
+    <v-row class="first-row">
       <v-col sm="3">
         <v-btn @click="moveToCreateRoomListPage" text>Room List</v-btn>
       </v-col>
     </v-row>
-    <v-row style="height:50%">
+    <v-row class="second-row">
       <v-col align="center">
         <v-text-field
-          style="width:50%"
           class="centeredInput"
           color="black"
           autofocus
@@ -27,11 +26,11 @@ import API from "@/services/apiService";
 import router from "@/router/index";
 import socket from "@/services/socket";
 import store from "@/store/index";
-export default {
+import Vue from "vue";
+export default Vue.extend({
   data: function() {
     return {
-      roomName: "",
-      roomId: undefined
+      roomName: ""
     };
   },
   methods: {
@@ -46,8 +45,8 @@ export default {
             `Room name: ${this.roomName} is taken. Please choose other name.`
           );
         else {
-          this.roomId = res.data.roomId;
-          router.push(`/chat-room/${this.roomId}`);
+          const roomId = res.data.roomId;
+          router.push(`/chat-room/${roomId}`);
           socket.emit("join", {
             roomName: this.roomName,
             user: store.state.user
@@ -56,11 +55,20 @@ export default {
       });
     }
   }
-};
+});
 </script>
 
 <style scoped>
 .centeredInput >>> input {
   text-align: center;
+}
+.centeredInput {
+  width: 50%;
+}
+.first-row {
+  height: 5%;
+}
+.second-row {
+  height: 50%;
 }
 </style>
