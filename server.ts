@@ -6,7 +6,7 @@ import path from 'path';
 const app: Application = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname, './client/dist')));
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 let i = 0;
 interface room { id : number, roomName: string, attendees: Array<string>}
@@ -14,7 +14,7 @@ let rooms: Array<room> = [];
 let loggedInUsers: Array<string> = [];
 
 app.get('*', function(req: Request, res: Response) {
-    res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
   });
 
 app.get('/', (req: Request, res: Response): void => {
