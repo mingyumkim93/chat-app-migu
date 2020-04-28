@@ -66,6 +66,7 @@ export default Vue.extend({
       .then(res => (this.rooms = res.data))
       .catch(err => alert(err));
     socket.on("attendeesChangedToNotZero", (room: Room) => {
+      console.log("e: ", this);
       const existRoom = this.rooms.find(
         (existingRoom: Room) => existingRoom.id === room.id
       );
