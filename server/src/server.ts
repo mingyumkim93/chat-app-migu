@@ -1,9 +1,12 @@
 import express, {Application, Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import * as socket from 'socket.io';
+import path from 'path';
+
 const app: Application = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 let i = 0;
 interface room { id : number, roomName: string, attendees: Array<string>}
@@ -49,7 +52,7 @@ app.post('/api/signOut',(req: Request, res: Response): void => {
     else res.sendStatus(400);
 });
 
-const server = app.listen(5000);
+const server = app.listen(process.env.PORT || 5000);
 const io = socket.listen(server);
 io.on("connection", (socket) => {
     console.log("new client connected", socket.id);
