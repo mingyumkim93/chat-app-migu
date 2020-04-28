@@ -22,10 +22,10 @@
 </template>
 
 <script lang="ts">
-import API from "@/services/apiService";
-import router from "@/router/index";
-import socket from "@/services/socket";
-import store from "@/store/index";
+import API from "../services/apiService";
+import router from "../router/index";
+import socket from "../services/socket";
+import store from "../store/index";
 import Vue from "vue";
 export default Vue.extend({
   data: function() {

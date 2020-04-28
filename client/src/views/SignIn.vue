@@ -47,9 +47,9 @@
 </template>
 
 <script lang="ts">
-import router from "@/router/index";
-import store from "@/store/index";
-import API from "@/services/apiService";
+import router from "../router/index";
+import store from "../store/index";
+import API from "../services/apiService";
 import Vue from "vue";
 export default Vue.extend({
   data: function() {

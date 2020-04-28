@@ -26,10 +26,10 @@
 </template>
 
 <script lang="ts">
-import API from "@/services/apiService";
-import router from "@/router/index";
-import store from "@/store/index";
-import socket from "@/services/socket";
+import API from "../services/apiService";
+import router from "../router/index";
+import store from "../store/index";
+import socket from "../services/socket";
 import Vue from "vue";
 interface Room {
   id: number;

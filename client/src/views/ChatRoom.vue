@@ -36,9 +36,9 @@
 </template>
 
 <script lang="ts">
-import socket from "@/services/socket";
-import store from "@/store/index";
-import router from "@/router/index";
+import socket from "../services/socket";
+import store from "../store/index";
+import router from "../router/index";
 import Vue from "vue";
 
 interface Message {
@@ -55,11 +55,13 @@ export default Vue.extend({
   },
   methods: {
     sendMessage(): void {
+      if(this.messageInput !== ""){
       const message = { sender: store.state.user, text: this.messageInput };
       socket.emit("message", message);
       const createdAt = this.getLocalDateString();
       this.messages.push({ ...message, createdAt });
       this.messageInput = "";
+      }
     },
     leaveRoom(): void {
       const roomId = parseInt(router.currentRoute.params.id);

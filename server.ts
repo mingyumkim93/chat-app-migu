@@ -19,7 +19,6 @@ app.get('/', (req: Request, res: Response): void => {
 
 app.get('/api/rooms', (req: Request, res: Response): void => {
     res.send(rooms);
-    console.log("rooms fetch")
 });
 
 app.post('/api/room', (req: Request, res: Response): void => {
