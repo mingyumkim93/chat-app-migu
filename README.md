@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Running web app
+Check out [here](https://chat-app-migu.herokuapp.com/)
